@@ -40,7 +40,6 @@ if ($method === 'GET' && isset($_GET['q'])) {
         }
         http_response_code(200);
         echo json_encode(['status' => 'success', 'data' => $results]);
-        
     } catch (Exception $e) {
         http_response_code(500);
         echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
@@ -58,13 +57,13 @@ switch ($method) {
         $stmt->bindParam(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
         $stmt->execute();
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         if (empty($data)) {
             http_response_code(404);
             echo json_encode(['status' => 'error', 'massage' => 'Data Kosong']);
             exit();
         }
-        
+
         http_response_code(200);
         echo json_encode(['status' => 'success', 'data' => $data]);
         break;
@@ -107,4 +106,3 @@ switch ($method) {
         http_response_code(405);
         echo json_encode(['status' => 'error', 'message' => 'Invalid request method']);
 }
-?>
